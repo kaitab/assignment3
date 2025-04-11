@@ -1,0 +1,56 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+  </head>
+
+  <body>
+
+    <h1 class="title">NoteBook</h1>
+
+    <div>
+      <p>
+        <form action="/" method="get">
+          &nbsp;<b>Search for</b>
+          &nbsp;
+          <input type="text" name="term" size=40>
+          <input type="submit" value="Submit">
+        </form>
+      </p>
+    </div>
+
+    <table>
+      <tr valign="top">
+        
+        <td>
+          <div class="notes">
+            {% if term %}
+            <p><b>Notes containing "{{term}}"</b></p>
+            {% else %}
+            <p><b>All notes</b></p>
+            {% endif %}
+            {% for note in notes %}
+            <div class="note"><a href="/note?title={{note}}">{{note}}</a></div>
+            {% endfor %}
+            </div>
+        </td>
+    
+        <td>&nbsp;</td>
+
+        <td>
+          <div class='add-note'>
+            <p><b>Create a new note</b></p>
+            <form action="/" method="post">
+              <p><input type="text" name="title" size=80 placeholder="enter note title"></p>
+              <p><textarea name="content" rows=10 cols=60 placeholder="enter content"></textarea></p>
+              <p><input type="submit" value="Add"></p>
+            </form>
+          </div>
+        </td>
+
+      </tr>
+    </table>
+
+  </body>
+
+</html>

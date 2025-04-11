@@ -1,0 +1,56 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+    <script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
+  </head>
+
+  <body onload="hide()">
+
+    <h1 class="title">NoteBook</h1>
+
+    <div class="navigation">
+      <a href="/">Main NoteBook Page</a>
+    </div>
+     
+    <div class="note-name">{{note.title}}</div>
+
+    <div class="note-container">
+      <div class="note-timestamp">{{note.timestamp}}</div>
+      <div class="note-text">{{note.content}}</div>
+    </div>
+
+    {% for comment in note.comments %}
+      <div class="comment">
+        <div class="comment-timestamp">{{comment.timestamp}}</div>
+        <div class="comment-text">{{comment.content}}</div>
+      </div>
+    {% endfor %}
+    
+    <p/>
+
+    <form action="/" method="post">
+      <input type="hidden" name="title" value="{{note.title}}">
+      <input type="hidden" name="delete" value=true>
+      <input type="submit" value="Delete Note">
+    </form>
+
+    <button onclick="toggle()">Add comment</button>
+
+      <form action="/note" method="post" id='add-comment'>
+        <p>
+          <input type="hidden" name="title" value="{{note.title}}">
+        </p>
+        <p>
+          <textarea 
+            name="content" rows=6 cols=80
+            placeholder="enter your comment here"></textarea>
+        </p>
+        <p>
+          <input type="submit" value="Add">
+        </p>
+      </form>  
+
+  </body>
+
+</html>
